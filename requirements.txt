@@ -1,2 +1,2 @@
-camelot
+pdfplumber
 beautifulsoup4
