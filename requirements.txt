@@ -1,4 +1,3 @@
 pdfplumber
-beautifulsoup4
-requests
+ipykernel
 pandas
