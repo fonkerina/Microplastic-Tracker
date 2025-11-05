@@ -2,3 +2,4 @@ pdfplumber
 ipykernel
 pandas
 sqlalchemy
+psycopg2-binary
