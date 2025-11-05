@@ -3,3 +3,5 @@ ipykernel
 pandas
 sqlalchemy
 psycopg2-binary
+seaborn
+matplotlib
