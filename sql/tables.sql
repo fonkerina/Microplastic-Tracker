@@ -44,20 +44,48 @@ LIMIT 20;
 
 /* INLAND v COASTAL+OFFSHORE */
 /* Aggregate relevant stats operations - INLAND */
-CREATE OR REPLACE VIEW inner_location_summary AS
+CREATE OR REPLACE VIEW inner_mass_byloc AS
 SELECT samp_location,
        avg(sum_micro_km2) as mass_avg,
        count(*) as samp_count_ploc
 FROM all_net_uk
 GROUP BY samp_location;
 
+CREATE OR REPLACE VIEW inner_mass_byyear AS
+SELECT EXTRACT(YEAR from samp_date) AS year,
+       avg(sum_micro_km2) as mass_avg,
+       count(*) as samp_count_pyear
+FROM all_net_uk
+GROUP BY year;
+
+CREATE OR REPLACE VIEW inner_mass_bymonth AS
+SELECT EXTRACT(MONTH from samp_date) AS month,
+        avg(sum_micro_km2) as mass_avg,
+        count(*) as samp_count_pmonth
+FROM all_net_uk
+GROUP BY month
+;
+
 /* Aggregate relevant stats operations - COASTAL+OFFSHORE */
-CREATE OR REPLACE VIEW outer_location_summary AS
+CREATE OR REPLACE VIEW outer_mass_byloc AS
 SELECT samp_location,
        avg(sum_micro_kg) as sed_mass_avg,
        count(*) as samp_count_ploc
 FROM engwales_sed_dat
 GROUP BY samp_location;
 
-SELECT * FROM inner_location_summary ORDER BY mass_avg DESC;
-SELECT * FROM outer_location_summary ORDER BY sed_mass_avg DESC;
+CREATE OR REPLACE VIEW outer_mass_byyear AS
+SELECT EXTRACT(YEAR from samp_date) AS year,
+       avg(sum_micro_kg) as mass_avg,
+       count(*) as samp_count_pyear
+FROM engwales_sed_dat
+GROUP BY year;
+
+CREATE OR REPLACE VIEW outer_mass_bymonth AS
+SELECT EXTRACT(MONTH from samp_date) AS month,
+        avg(sum_micro_kg) as mass_avg,
+        count(*) as samp_count_pmonth
+FROM engwales_sed_dat
+GROUP BY month
+;
+
