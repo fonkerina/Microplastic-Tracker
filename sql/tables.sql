@@ -12,7 +12,13 @@ CREATE TABLE all_net_UK AS
     WHERE samp_location !~* 'offshore'
 ;
 
-SELECT samp_location, samp_date, sum_micro_km2 
+ALTER TABLE all_net_uk
+ADD COLUMN plastic_ratio DOUBLE PRECISION;
+
+UPDATE all_net_uk
+SET plastic_ratio = sum_micro_km2 / NULLIF(sum_km2, 0);
+
+SELECT samp_location, samp_date, sum_micro_km2, plastic_ratio
 FROM all_net_uk 
 ORDER BY samp_date
 LIMIT 20;
